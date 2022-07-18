@@ -1,10 +1,12 @@
 package com.example.homework210.service;
 
+import com.example.homework210.exception.BadNamesException;
 import com.example.homework210.model.Employee;
 import com.example.homework210.exception.EmployeeAlreadyAddedException;
 import com.example.homework210.exception.EmployeeNotFoundException;
 import com.example.homework210.exception.EmployeeStorageIsFullException;
 import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -34,6 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.containsKey(lastName + " " + firstName)) {
             throw new EmployeeAlreadyAddedException("Такой сотрудник уже существует");
         }
+        lastName = namesCheck(lastName);
+        firstName = namesCheck(firstName);
         Employee employee = new Employee(lastName, firstName, salary, department);
         employees.put(lastName + " " + firstName, employee);
         return employee;
@@ -63,6 +67,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Map<String, Employee> list() {
         return new HashMap(employees);
+    }
+
+    private String namesCheck(String string){
+        if(!StringUtils.isAlpha(string)){
+            throw new BadNamesException();
+        }
+        return StringUtils.capitalize(string);
     }
 }
 
