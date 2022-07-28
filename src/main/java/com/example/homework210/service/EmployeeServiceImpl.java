@@ -13,19 +13,9 @@ import java.util.*;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private Map<String, Employee> employees = new HashMap<>(Map.of(
-            "Егоров Егор", new Employee("Егоров", "Егор", 40000, 1),
-            "Аалександров Александр", new Employee("Аалександров", "Аалександр", 50000, 1),
-            "Иванов Иван", new Employee("Иванов", "Иван", 60000, 1),
-            "Дмитриев Дмитрий", new Employee("Дмитриев", "Дмитрий", 70000, 2),
-            "Сергеев Сергей", new Employee("Сергеев", "Сергей", 80000, 2),
-            "Николаев Николай", new Employee("Николаев", "Николай", 90000, 2),
-            "Евгеньев Евгений", new Employee("Евгеньев", "Евгений", 100000, 3),
-            "Евсеев Евсей", new Employee("Евсеев", "Евсей", 90000, 3),
-            "Павлов Павел", new Employee("Павлов", "Павел", 80000, 3)
-    ));
+    private Map<String, Employee> employees = new HashMap<>();
 
-    private final int employeeNum = 10;
+    public final int employeeNum = 10;
 
     @Override
     public Employee addNewEmployee(String lastName, String firstName, Integer salary, Integer department) {
@@ -73,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(!StringUtils.isAlpha(string)){
             throw new BadNamesException();
         }
-        return StringUtils.capitalize(string);
+        return StringUtils.capitalize(string.toLowerCase());
     }
 }
 
